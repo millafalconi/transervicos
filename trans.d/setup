@@ -17,13 +17,19 @@ install TODO!
 EOH
 )
 
-function check_setup()
-{
-  echo "check setup was called"
+function check_vagrant_installed() {
+  if -v vagrant 2>/dev/null; then
+    in_green "[OK] Vagrant"
+  else
+    in_red "[NOK] Vagrant é necessário e não está instalado"
+  fi
 }
 
-function install_dependencies()
-{
+function check_setup() {
+  check_vagrant_installed
+}
+
+function install_dependencies() {
   echo "install all was called"
 }
 
