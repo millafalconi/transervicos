@@ -19,9 +19,9 @@ EOH
 
 function check_vagrant_installed() {
   if -v vagrant 2>/dev/null; then
-    in_green "[OK] Vagrant"
+    in_green "[OK] Vagrant instalado"
   else
-    in_red "[NOK] Vagrant é necessário e não está instalado"
+    in_red "[NOK] Vagrant não está instalado"
   fi
 }
 
