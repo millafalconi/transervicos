@@ -2,10 +2,10 @@
 # vim: ft=sh
 
 #What do we need to check for:
-##Vagrant installed
-##Vagrant Cashier
+##Vagrant installed? DONE
+##Vagrant Cashier?
 ##VirtalBox installed
-##Ansible installed
+##Ansible installed? DONE
 
 SUBCOMMAND_DESC="Verifique o setup do projeto"
 SUBCOMMAND_HELP=$(cat <<EOH
@@ -18,14 +18,23 @@ EOH
 )
 
 function check_vagrant_installed() {
-  if -v vagrant 2>/dev/null; then
+  if [ -x "$(command -v vagrant)" ]; then
     in_green "[OK] Vagrant instalado"
-  else
-    in_red "[NOK] Vagrant não está instalado"
+    return
   fi
+  in_red "[NOK] Vagrant é necessário. Vagrant não está instalado"
+}
+
+function check_ansible_installed() {
+  if [ -x "$(command -v ansible)" ]; then
+    in_green "[OK] Ansible instalado"
+    return
+  fi
+  in_red "[NOK] Ansible é necessário. Ansible não está instalado"
 }
 
 function check_setup() {
+  check_ansible_installed
   check_vagrant_installed
 }
 
