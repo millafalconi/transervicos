@@ -9,8 +9,7 @@
 
 SUBCOMMAND_DESC="Verifique o setup do projeto"
 SUBCOMMAND_HELP=$(cat <<EOH
-setup [check]
-setup [install]
+Usage ${MAIN_COMMAND} ${SUBCOMMAND} [check] [install]
 
 check TODO!
 install TODO!
@@ -18,42 +17,24 @@ install TODO!
 EOH
 )
 
-# # A simple function
-# function _parse() {
-#   local choice="${1}"
-#   case "$choice" in
-#     y|Y)
-#       #You can use different collors for output
-#       in_cyan "Confirmed"
-#       ;;
-#     n|N)
-#       in_yellow "Not confirmed"
-#       ;;
-#     *)
-#       in_red "Invalid option"
-#       ;;
-#   esac
-# }
-
 function check_setup()
 {
-  echo "check was called"
+  echo "check setup was called"
+}
+
+function install_dependencies()
+{
+  echo "install all was called"
 }
 
 is_help_mode "${@}" && return
-check_setup
 
 #Different actions based on arguments
-#case ${1} in
-  #This will be executed if we run template hello
-#  hello)
-#    echo "Hello World!"
-#    ;;
-  #This will be executed if we run template confirm
-#  confirm)
-    #Ask for user confirmation before executing an action
-#    read -p "Do you want to proceed?(y/n) " choice
-    # call function to parse choice...
-#    _parse ${choice}
-#  ;;
-#esac
+case ${1} in
+  check)
+    check_setup
+    ;;
+  install)
+    install_dependencies
+  ;;
+esac

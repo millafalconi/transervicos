@@ -75,7 +75,7 @@ function _list_libraries() {
 }
 
 function is_help_mode() {
-  [[ -z "${@}" || "${1}" == in 'help', '--help' ]]
+  [[ -z "${@}" || "${1}" == 'help' ]]
 }
 
 function _subcommand_help() {
