@@ -17,20 +17,28 @@ install TODO!
 EOH
 )
 
+function msg_installed() {
+  in_green "OK: "${1}" instalado"
+}
+
+function msg_not_installed() {
+  in_red "NOK: "${1}" é necessário. "${1}" não está instalado"
+}
+
 function check_if_plugin_installed() {
   if [[ $(${1} plugin list | grep "${2}") = *${2}* ]]; then
-    in_green "OK: "${2}" instalado"
+    msg_installed ${2}
     return
   fi
-  in_red "NOK: "${2}" é necessário. "${2}" não está instalado"
+  msg_not_installed ${2}
 }
 
 function check_if_installed() {
   if [ -x "$(command -v ${1})" ]; then
-    in_green "OK: ${1} instalado"
+    msg_installed ${1}
     return
   fi
-  in_red "NOK: ${1} é necessário. ${1} não está instalado"
+  msg_not_installed ${1}
 }
 
 function check_setup() {
