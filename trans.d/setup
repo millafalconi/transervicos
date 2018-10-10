@@ -3,7 +3,7 @@
 
 #What do we need to check for:
 ##Vagrant installed? DONE
-##Vagrant Cashier?
+##Vagrant Cashier? DONE
 ##VirtalBox installed DONE
 ##Ansible installed? DONE
 
@@ -17,43 +17,27 @@ install TODO!
 EOH
 )
 
-function check_vagrant_installed() {
-  if [ -x "$(command -v vagrant)" ]; then
-    in_green "[OK] Vagrant instalado"
+function check_if_plugin_installed() {
+  if [[ $(${1} plugin list | grep "${2}") = *${2}* ]]; then
+    in_green "[OK] "${2}" instalado"
     return
   fi
-  in_red "[NOK] Vagrant é necessário. Vagrant não está instalado"
+  in_red "[NOK] "${2}" é necessário. "${2}" não está instalado"
 }
 
-function check_vagrant_cachier_installed() {
-  if [[ $(vagrant plugin list | grep 'vagrant-cachier') = *vagrant-cachier* ]]; then
-    in_green "[OK] Vagrant Cachier instalado"
+function check_if_installed() {
+  if [ -x "$(command -v ${1})" ]; then
+    in_green "OK: ${1} instalado"
     return
   fi
-  in_red "[NOK] Vagrant Cachier é necessário. Vagrant Cachier não está instalado"
-}
-
-function check_ansible_installed() {
-  if [ -x "$(command -v ansible)" ]; then
-    in_green "[OK] Ansible instalado"
-    return
-  fi
-  in_red "[NOK] Ansible é necessário. Ansible não está instalado"
-}
-
-function check_virtualbox_installed() {
-  if [ -x "$(command -v virtualbox)" ]; then
-    in_green "[OK] VirtualBox instalado"
-    return
-  fi
-  in_red "[NOK] VirtualBox é necessário. VirtualBox não está instalado"
+  in_red "NOK: ${1} é necessário. ${1} não está instalado"
 }
 
 function check_setup() {
-  check_ansible_installed
-  check_vagrant_installed
-  check_vagrant_cachier_installed
-  check_virtualbox_installed
+  check_if_installed "ansible"
+  check_if_installed "vagrant"
+  check_if_plugin_installed "vagrant" "vagrant-cachier"
+  check_if_installed "virtualbox"
 }
 
 function install_dependencies() {
