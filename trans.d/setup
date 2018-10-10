@@ -19,10 +19,10 @@ EOH
 
 function check_if_plugin_installed() {
   if [[ $(${1} plugin list | grep "${2}") = *${2}* ]]; then
-    in_green "[OK] "${2}" instalado"
+    in_green "OK: "${2}" instalado"
     return
   fi
-  in_red "[NOK] "${2}" é necessário. "${2}" não está instalado"
+  in_red "NOK: "${2}" é necessário. "${2}" não está instalado"
 }
 
 function check_if_installed() {
