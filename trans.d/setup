@@ -4,7 +4,7 @@
 #What do we need to check for:
 ##Vagrant installed? DONE
 ##Vagrant Cashier?
-##VirtalBox installed
+##VirtalBox installed DONE
 ##Ansible installed? DONE
 
 SUBCOMMAND_DESC="Verifique o setup do projeto"
@@ -33,9 +33,19 @@ function check_ansible_installed() {
   in_red "[NOK] Ansible é necessário. Ansible não está instalado"
 }
 
+function check_virtualbox_installed() {
+  if [ -x "$(command -v virtualbox)" ]; then
+    in_green "[OK] VirtualBox instalado"
+    return
+  fi
+  in_red "[NOK] VirtualBox é necessário. VirtualBox não está instalado"
+}
+
 function check_setup() {
   check_ansible_installed
   check_vagrant_installed
+  check_vagrant_cachier_installed
+  check_virtualbox_installed
 }
 
 function install_dependencies() {
