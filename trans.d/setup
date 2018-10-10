@@ -25,6 +25,14 @@ function check_vagrant_installed() {
   in_red "[NOK] Vagrant é necessário. Vagrant não está instalado"
 }
 
+function check_vagrant_cachier_installed() {
+  if [[ $(vagrant plugin list | grep 'vagrant-cachier') = *vagrant-cachier* ]]; then
+    in_green "[OK] Vagrant Cachier instalado"
+    return
+  fi
+  in_red "[NOK] Vagrant Cachier é necessário. Vagrant Cachier não está instalado"
+}
+
 function check_ansible_installed() {
   if [ -x "$(command -v ansible)" ]; then
     in_green "[OK] Ansible instalado"
