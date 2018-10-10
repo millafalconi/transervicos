@@ -11,7 +11,7 @@ SUBCOMMAND_DESC="Verifique o setup do projeto"
 SUBCOMMAND_HELP=$(cat <<EOH
 Usage ${MAIN_COMMAND} ${SUBCOMMAND} [check] [install]
 
-check TODO!
+check Verifica se todas as dependências estão instaladas.
 install TODO!
 
 EOH
