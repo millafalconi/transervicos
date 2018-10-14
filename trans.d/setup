@@ -55,8 +55,19 @@ function check() {
 }
 
 function install() {
-  in_yellow "OK: instalando ${1} via brew..."
-  brew install ${1}
+  local to_install=${1}
+  case $to_install in
+    ansible)
+      in_yellow "OK: instalando ${1} via brew..."
+      brew install $to_install
+      ;;
+    vagrant)
+      in_yellow "OK: instalando ${1} via brew cask..."
+      brew cask install $to_install
+      ;;
+    *)
+      ;;
+  esac
 }
 
 function parse_choice() {
