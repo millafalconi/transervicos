@@ -20,11 +20,15 @@ function msg_not_installed() {
 }
 
 function is_plugin_installed() {
-  if [[ $(${1} plugin list | grep "${2}") = *${2}* ]]; then
-    msg_installed ${2}
-    return
+  if is_installed ${1}; then
+    if [[ $(${1} plugin list | grep "${2}") = *${2}* ]]; then
+      msg_installed ${2}
+      return
+    fi
+    msg_not_installed ${2}
+  else
+    msg_not_installed ${2}
   fi
-  msg_not_installed ${2}
 }
 
 function is_installed() {
