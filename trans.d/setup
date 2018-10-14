@@ -62,11 +62,11 @@ function install() {
   local to_install=${1}
   case $to_install in
     ansible)
-      in_yellow "OK: instalando ${1} via brew..."
+      in_yellow "OK: instalando $to_install via brew..."
       brew install $to_install
       ;;
     vagrant)
-      in_yellow "OK: instalando ${1} via brew cask..."
+      in_yellow "OK: instalando $to_install via brew cask..."
       brew cask install $to_install
       ;;
     *)
