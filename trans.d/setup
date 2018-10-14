@@ -70,7 +70,7 @@ function parse_choice() {
       return -1
       ;;
     *)
-      in_red "NOK: valor fornecido: $choice não é uma opção válida."
+      in_red "NOK: $choice não é uma opção válida."
       exit;;
   esac
 }
@@ -86,7 +86,11 @@ function install_if_missing() {
 
     if [[ $? -eq 0 ]]; then
       install $to_be_installed
-      in_green "OK: $to_be_installed instalado com sucesso!"
+      if is_installed $to_be_installed; then
+        in_green "OK: $to_be_installed instalado com sucesso!"
+      else
+        in_red "NOK: $to_be_installed não instalado"
+      fi
     else
       in_yellow "NOK: $to_be_installed é necessário, mas não foi instalado"
       in_yellow "NOK: encerrando setup para: $to_be_installed"
@@ -106,8 +110,9 @@ function check_setup() {
 }
 
 function install_all() {
-  in_yellow "Instalando todas as dependências necessárias para o projeto: transervicos"
+  in_green "Instalando todas as dependências necessárias para o projeto: transervicos"
   install_if_missing "ansible"
+  install_if_missing "vagrant"
 }
 
 is_help_mode "${@}" && return
