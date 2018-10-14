@@ -54,6 +54,45 @@ function check() {
   fi
 }
 
+function install() {
+  in_yellow "OK: instalando ${1} via brew..."
+  brew install ${1}
+}
+
+function parse_choice() {
+  local choice=${1}
+  case $choice in
+    y|Y)
+      in_green "OK: dependencia será instalada..."
+      ;;
+    n|N)
+      in_green "OK: dependencia não será instalada..."
+      return -1
+      ;;
+    *)
+      in_red "NOK: input: $choice. $choice é uma opção inválida."
+      exit;;
+  esac
+}
+
+function install_if_missing() {
+  local to_be_installed=${1}
+  in_yellow "Instalando: $to_be_installed..."
+  if ! is_installed $to_be_installed; then
+    msg_not_installed $to_be_installed
+    read -p "Deseja instalar $to_be_installed ? (y/n) " choice
+    parse_choice ${choice}
+    if [[ $? -eq 0 ]]; then
+      install $to_be_installed
+    else
+      in_yellow "NOK: $to_be_installed é necessário. não será instalado."
+      in_yellow "NOK: encerrando setup para: $to_be_installed"
+    fi
+  else
+    msg_installed $to_be_installed
+  fi
+}
+
 function check_setup() {
   check "virtualbox"
   check "vagrant"
@@ -62,12 +101,8 @@ function check_setup() {
   check_version "ansible"
 }
 
-function install_dependencies() {
-  if is_installed "ansible"; then
-    echo "ansible installed"
-  else
-    echo "not ansible installed"
-  fi
+function install_all() {
+  install_if_missing "ansible"
 }
 
 is_help_mode "${@}" && return
@@ -77,6 +112,6 @@ case ${1} in
     check_setup
     ;;
   install)
-    install_dependencies
+    install_all
   ;;
 esac
