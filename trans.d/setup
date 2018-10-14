@@ -90,27 +90,39 @@ function parse_choice() {
   esac
 }
 
+function verify_instalation() {
+  local dependency=${1}
+  if is_installed $dependency; then
+    in_green "OK: $dependency instalado com sucesso!"
+  else
+    in_red "NOK: $dependency não instalado"
+  fi
+}
+
+function confirm_installation() {
+  read -p "Confirma instalação? (y/n) " choice
+  parse_choice ${choice}
+}
+
+function msg_instalation_not_confirmed() {
+  in_yellow "NOK: $to_be_installed é necessário, mas não foi instalado"
+  in_yellow "NOK: encerrando setup para: $to_be_installed"
+}
+
 function install_if_missing() {
   local to_be_installed=${1}
   if ! is_installed $to_be_installed; then
     in_yellow "NOK: $to_be_installed é necessário e não foi encontrado"
     in_yellow "$to_be_installed será instalado..."
 
-    read -p "Confirma instalação? (y/n) " choice
-    parse_choice ${choice}
+    confirm_installation
 
     if [[ $? -eq 0 ]]; then
       install $to_be_installed
-      if is_installed $to_be_installed; then
-        in_green "OK: $to_be_installed instalado com sucesso!"
-      else
-        in_red "NOK: $to_be_installed não instalado"
-      fi
+      verify_instalation $to_be_installed
     else
-      in_yellow "NOK: $to_be_installed é necessário, mas não foi instalado"
-      in_yellow "NOK: encerrando setup para: $to_be_installed"
+      msg_instalation_not_confirmed
     fi
-
   else
     msg_installed $to_be_installed
   fi
