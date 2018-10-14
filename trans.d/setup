@@ -63,31 +63,35 @@ function parse_choice() {
   local choice=${1}
   case $choice in
     y|Y)
-      in_green "OK: dependencia será instalada..."
+      in_yellow "OK: instalação confirmada."
       ;;
     n|N)
-      in_green "OK: dependencia não será instalada..."
+      in_yellow "NOK: instalação não confirmada."
       return -1
       ;;
     *)
-      in_red "NOK: input: $choice. $choice é uma opção inválida."
+      in_red "NOK: valor fornecido: $choice não é uma opção válida."
       exit;;
   esac
 }
 
 function install_if_missing() {
   local to_be_installed=${1}
-  in_yellow "Instalando: $to_be_installed..."
   if ! is_installed $to_be_installed; then
-    msg_not_installed $to_be_installed
-    read -p "Deseja instalar $to_be_installed ? (y/n) " choice
+    in_yellow "NOK: $to_be_installed é necessário e não foi encontrado"
+    in_yellow "$to_be_installed será instalado..."
+
+    read -p "Confirma instalação? (y/n) " choice
     parse_choice ${choice}
+
     if [[ $? -eq 0 ]]; then
       install $to_be_installed
+      in_green "OK: $to_be_installed instalado com sucesso!"
     else
-      in_yellow "NOK: $to_be_installed é necessário. não será instalado."
+      in_yellow "NOK: $to_be_installed é necessário, mas não foi instalado"
       in_yellow "NOK: encerrando setup para: $to_be_installed"
     fi
+
   else
     msg_installed $to_be_installed
   fi
@@ -102,6 +106,7 @@ function check_setup() {
 }
 
 function install_all() {
+  in_yellow "Instalando todas as dependências necessárias para o projeto: transervicos"
   install_if_missing "ansible"
 }
 
