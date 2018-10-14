@@ -19,7 +19,7 @@ function msg_not_installed() {
   in_red "NOK: "${1}" é necessário. "${1}" não está instalado"
 }
 
-function check_if_plugin_installed() {
+function is_plugin_installed() {
   if [[ $(${1} plugin list | grep "${2}") = *${2}* ]]; then
     msg_installed ${2}
     return
@@ -27,35 +27,47 @@ function check_if_plugin_installed() {
   msg_not_installed ${2}
 }
 
-function check_if_installed() {
-  if [ -x "$(command -v ${1})" ]; then
-    msg_installed ${1}
-    return
-  fi
-  msg_not_installed ${1}
+function is_installed() {
+  [ -x "$(command -v ${1})" ]
 }
 
 function check_version() {
-  min=1.9
-  current=$(${1} --version | head -n 1 | awk '{print $NF}' | cut -c 1-3)
+  if is_installed ${1}; then
+    min=1.9
+    current=$(${1} --version | head -n 1 | awk '{print $NF}' | cut -c 1-3)
 
-  if [ 1 -eq `echo "${current} < ${min}" | bc` ]; then
-    in_red "NOK: versão do ansible é menor que ${min}. atualize o ansible."
-    return
+    if [ 1 -eq `echo "${current} < ${min}" | bc` ]; then
+      in_red "NOK: versão do ansible é menor que ${min}. atualize o ansible."
+      return
+    fi
+    in_green "OK: versão do ansible é maior ou igual a ${min}"
+  else
+    in_red "NOK: não foi possivel verificar versão do ansible. ansible não instalado"
   fi
-  in_green "OK: versão do ansible é maior ou igual a ${min}"
+}
+
+function check() {
+  if is_installed ${1}; then
+    msg_installed ${1}
+  else
+    msg_not_installed ${1}
+  fi
 }
 
 function check_setup() {
-  check_if_installed "ansible"
+  check "virtualbox"
+  check "vagrant"
+  is_plugin_installed "vagrant" "vagrant-cachier"
+  check "ansible"
   check_version "ansible"
-  check_if_installed "vagrant"
-  check_if_plugin_installed "vagrant" "vagrant-cachier"
-  check_if_installed "virtualbox"
 }
 
 function install_dependencies() {
-  echo "install all was called"
+  if is_installed "ansible"; then
+    echo "ansible installed"
+  else
+    echo "not ansible installed"
+  fi
 }
 
 is_help_mode "${@}" && return
