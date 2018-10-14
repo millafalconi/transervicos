@@ -1,13 +1,6 @@
 #!/usr/bin/env bash
 # vim: ft=sh
 
-#What do we need to check for:
-##Vagrant installed? DONE
-##Vagrant Cashier? DONE
-##VirtalBox installed DONE
-##Ansible installed? DONE
-##Min versionfor ansible:
-
 SUBCOMMAND_DESC="Verifique o setup do projeto"
 SUBCOMMAND_HELP=$(cat <<EOH
 Usage ${MAIN_COMMAND} ${SUBCOMMAND} [check] [install]
@@ -67,7 +60,6 @@ function install_dependencies() {
 
 is_help_mode "${@}" && return
 
-#Different actions based on arguments
 case ${1} in
   check)
     check_setup
