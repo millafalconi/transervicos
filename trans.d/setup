@@ -146,8 +146,8 @@ function check_setup() {
 
 function install_all() {
   in_green "Instalando todas as dependências necessárias para o projeto: transervicos"
-  # install_if_missing "virtualbox"
-  # install_if_missing "ansible"
+  install_if_missing "virtualbox"
+  install_if_missing "ansible"
   install_if_missing "vagrant"
   install_if_missing "vagrant-cachier"
 }
