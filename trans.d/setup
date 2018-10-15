@@ -65,7 +65,7 @@ function install() {
       in_yellow "OK: instalando $to_install via brew..."
       brew install $to_install
       ;;
-    vagrant)
+    vagrant|virtualbox)
       in_yellow "OK: instalando $to_install via brew cask..."
       brew cask install $to_install
       ;;
@@ -140,8 +140,10 @@ function check_setup() {
 
 function install_all() {
   in_green "Instalando todas as dependências necessárias para o projeto: transervicos"
+  install_if_missing "virtualbox"
   install_if_missing "ansible"
   install_if_missing "vagrant"
+
 }
 
 is_help_mode "${@}" && return
