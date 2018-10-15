@@ -19,20 +19,16 @@ function msg_not_installed() {
   in_red "NOK: "${1}" é necessário. "${1}" não está instalado"
 }
 
-function is_plugin_installed() {
-  if is_installed ${1}; then
-    if [[ $(${1} plugin list | grep "${2}") = *${2}* ]]; then
-      msg_installed ${2}
-      return
-    fi
-    msg_not_installed ${2}
-  else
-    msg_not_installed ${2}
-  fi
-}
-
 function is_installed() {
-  [ -x "$(command -v ${1})" ]
+  case ${1} in
+    vagrant-cachier)
+      is_installed "vagrant" && [[ $(vagrant plugin list | grep "${1}") = *${1}* ]]
+      ;;
+    *)
+      [ -x "$(command -v ${1})" ]
+      ;;
+  esac
+
 }
 
 function check_version() {
@@ -124,6 +120,7 @@ function install_if_missing() {
 
   if [[ $? != 0 ]]; then
     msg_instalation_not_confirmed
+    return
   fi
 
   install $to_be_installed
@@ -133,17 +130,17 @@ function install_if_missing() {
 function check_setup() {
   check "virtualbox"
   check "vagrant"
-  is_plugin_installed "vagrant" "vagrant-cachier"
+  check "vagrant-cachier"
   check "ansible"
   check_version "ansible"
 }
 
 function install_all() {
   in_green "Instalando todas as dependências necessárias para o projeto: transervicos"
-  install_if_missing "virtualbox"
-  install_if_missing "ansible"
+  # install_if_missing "virtualbox"
+  # install_if_missing "ansible"
   install_if_missing "vagrant"
-
+  install_if_missing "vagrant-cachier"
 }
 
 is_help_mode "${@}" && return
