@@ -111,21 +111,23 @@ function msg_instalation_not_confirmed() {
 
 function install_if_missing() {
   local to_be_installed=${1}
-  if ! is_installed $to_be_installed; then
-    in_yellow "NOK: $to_be_installed é necessário e não foi encontrado"
-    in_yellow "$to_be_installed será instalado..."
 
-    confirm_installation
-
-    if [[ $? -eq 0 ]]; then
-      install $to_be_installed
-      verify_instalation $to_be_installed
-    else
-      msg_instalation_not_confirmed
-    fi
-  else
+  if is_installed $to_be_installed; then
     msg_installed $to_be_installed
+    return
   fi
+
+  in_yellow "NOK: $to_be_installed é necessário e não foi encontrado"
+  in_yellow "$to_be_installed será instalado..."
+
+  confirm_installation
+
+  if [[ $? != 0 ]]; then
+    msg_instalation_not_confirmed
+  fi
+
+  install $to_be_installed
+  verify_instalation $to_be_installed
 }
 
 function check_setup() {
