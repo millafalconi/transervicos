@@ -65,6 +65,15 @@ function install() {
       in_yellow "OK: instalando $to_install via brew cask..."
       brew cask install $to_install
       ;;
+    vagrant-cachier)
+      in_yellow "OK: instalando vagrant plugin $to_install..."
+      if ! is_installed "vagrant"; then
+        msg_not_installed "vagrant"
+        in_red "NOK: $to_install não pode ser instalado sem o vagrant"
+        return
+      fi
+      vagrant plugin install $to_install
+      ;;
     *)
       ;;
   esac
