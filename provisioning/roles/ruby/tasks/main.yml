@@ -1,5 +1,6 @@
-- name: Update apt cache (Debian).
-  apt: update_cache=yes cache_valid_time=86400
+- name: Force updating apt package lists
+  apt:
+    update_cache: yes
 
 - name: Install packages required to build ruby (Debian).
   apt: "pkg={{ item }} state=installed"
@@ -40,7 +41,6 @@
    - ./configure --enable-shared
    - make
    - sudo make install
-
 
 - name: Add ruby symlinks.
   file: >

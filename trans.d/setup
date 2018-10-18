@@ -6,7 +6,9 @@ SUBCOMMAND_HELP=$(cat <<EOH
 Usage ${MAIN_COMMAND} ${SUBCOMMAND} [check] [install]
 
 check Verifica se todas as dependências estão instaladas.
-install TODO!
+install Instala dependências se necessárias e não instaladas.
+
+TODO: Add required plugin vagrant-vbguest
 
 EOH
 )
