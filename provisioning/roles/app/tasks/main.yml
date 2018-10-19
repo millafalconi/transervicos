@@ -64,9 +64,7 @@
   apt: "pkg=libfontconfig state=installed"
 
 - name: install ruby dependencies
-  bundler:
-    chdir: "{{ base_path }}"
-    state: latest
+  command: bash -lc 'bundle install' chdir={{ base_path }}
   sudo_user: vagrant
 
 - lineinfile: dest=/home/vagrant/.bashrc line='alias brake="bundle exec rake"'
