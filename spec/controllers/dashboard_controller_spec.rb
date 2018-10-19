@@ -4,7 +4,7 @@ RSpec.describe DashboardController, type: :controller do
   describe 'GET #index' do
     context 'when logged in' do
       it 'returns http success' do
-        sign_in FactoryGirl.create(:user)
+        sign_in FactoryBot.create(:user)
         get :index
         expect(response).to have_http_status(:success)
       end

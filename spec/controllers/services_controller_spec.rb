@@ -77,7 +77,7 @@ RSpec.describe ServicesController, type: :controller do
         service_attributes
       end
       before :each do
-        sign_in FactoryGirl.create(:user)
+        sign_in FactoryBot.create(:user)
       end
       it 'creates a new service' do
         expect { post :create, service: valid_service_attributes }.to change { Service.count }.by(1)

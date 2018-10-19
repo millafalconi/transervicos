@@ -1,6 +1,6 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :city do
-    state { FactoryGirl.create(:state) }
+    state { FactoryBot.create(:state) }
     name { Faker::Address.city }
   end
 end

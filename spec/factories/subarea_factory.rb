@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :subarea_education_high_school, class: Subarea do
     association :area, factory: :area_education, strategy: :create
     subarea 'High School'

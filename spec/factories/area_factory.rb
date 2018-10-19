@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :area_education, class: Area do
     area 'Education'
   end

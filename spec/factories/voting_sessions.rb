@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :voting_session do
     ip 'MyString'
   end
