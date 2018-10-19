@@ -8,8 +8,6 @@ Usage ${MAIN_COMMAND} ${SUBCOMMAND} [check] [install]
 check Verifica quais dependências existem e versões mínimas.
 install Instala dependências necessárias e não instaladas.
 
-TODO: Add required plugin vagrant-vbguest
-
 EOH
 )
 
