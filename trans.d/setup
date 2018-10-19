@@ -79,7 +79,7 @@ function install() {
       in_yellow "OK: instalando $to_install via brew cask..."
       brew cask install $to_install
       ;;
-    vagrant-cachier)
+    vagrant-cachier|vagrant-vbguest)
       in_yellow "OK: instalando vagrant plugin $to_install..."
       if ! is_installed "vagrant"; then
         msg_not_installed "vagrant"
@@ -219,6 +219,7 @@ function install_all() {
   upgrade_if_needed "ansible" 1.9
   install_if_missing "vagrant"
   install_if_missing "vagrant-cachier"
+  install_if_missing "vagrant-vbguest"
 }
 
 is_help_mode "${@}" && return
