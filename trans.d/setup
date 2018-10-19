@@ -5,8 +5,8 @@ SUBCOMMAND_DESC="Verifique o setup do projeto"
 SUBCOMMAND_HELP=$(cat <<EOH
 Usage ${MAIN_COMMAND} ${SUBCOMMAND} [check] [install]
 
-check Verifica se todas as dependências estão instaladas.
-install Instala dependências se necessárias e não instaladas.
+check Verifica quais dependências existem e versões mínimas.
+install Instala dependências necessárias e não instaladas.
 
 TODO: Add required plugin vagrant-vbguest
 
@@ -14,11 +14,11 @@ EOH
 )
 
 function msg_installed() {
-  in_green "OK: "${1}" está instalado"
+  in_green "OK: "${1}" instalado"
 }
 
 function msg_not_installed() {
-  in_red "NOK: "${1}" é necessário. "${1}" não está instalado"
+  in_red "NOK: "${1}" necessário. "${1}" não instalado"
 }
 
 function is_installed() {
@@ -53,7 +53,7 @@ function check_version() {
   fi
 
   if ! has_min_version ${1} ${min}; then
-    in_red "NOK: versão do ${1} é menor que ${min}. atualize o ${1}"
+    in_red "NOK: versão de ${1} é menor que ${min}. atualize ${1}"
     return
   fi
 
@@ -115,7 +115,7 @@ function verify_upgrade() {
   if has_min_version $dependency $min; then
     in_green "OK: $dependency atualizado com sucesso!"
   else
-    in_red "NOK: versão do $dependency é menor que ${min}. atualize $dependency."
+    in_red "NOK: versão do $dependency menor que ${min}. atualize $dependency."
   fi
 }
 
@@ -134,12 +134,12 @@ function confirm_installation() {
 }
 
 function msg_instalation_not_confirmed() {
-  in_yellow "NOK: $to_be_installed é necessário, mas não foi instalado"
-  in_yellow "NOK: encerrando setup para: $to_be_installed"
+  in_yellow "NOK: $to_be_installed necessário, mas não instalado"
+  in_yellow "NOK: encerrando setup de: $to_be_installed"
 }
 
 function msg_upgrade_not_confirmed() {
-  in_yellow "NOK: Versão mínima de $to_be_upgraded é necessária, mas não foi instalada"
+  in_yellow "NOK: Versão mínima de $to_be_upgraded necessária, mas não instalada"
   in_yellow "Versão mínima: ${min}. Versão encontrada: ${current}"
   in_yellow "NOK: encerrando atualização de versão para: $to_be_upgraded"
 }
@@ -189,7 +189,7 @@ function install_if_missing() {
     return
   fi
 
-  in_yellow "NOK: $to_be_installed é necessário e não foi encontrado"
+  in_yellow "NOK: $to_be_installed é necessário e não encontrado"
   in_yellow "$to_be_installed será instalado..."
 
   confirm_installation
@@ -212,7 +212,7 @@ function check_setup() {
 }
 
 function install_all() {
-  in_green "Instalando todas as dependências necessárias para o projeto: transervicos"
+  in_green "Instalando dependências necessárias para o projeto: transervicos"
   install_if_missing "virtualbox"
   install_if_missing "ansible"
   upgrade_if_needed "ansible" 1.9
