@@ -6,6 +6,7 @@ SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
 SET check_function_bodies = false;
 SET client_min_messages = warning;
 
@@ -37,8 +38,6 @@ CREATE EXTENSION IF NOT EXISTS unaccent WITH SCHEMA public;
 COMMENT ON EXTENSION unaccent IS 'text search dictionary that removes accents';
 
 
-SET search_path = public, pg_catalog;
-
 SET default_tablespace = '';
 
 SET default_with_oids = false;
@@ -47,7 +46,7 @@ SET default_with_oids = false;
 -- Name: addresses; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE addresses (
+CREATE TABLE public.addresses (
     id integer NOT NULL,
     street character varying,
     number character varying,
@@ -65,7 +64,7 @@ CREATE TABLE addresses (
 -- Name: addresses_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE addresses_id_seq
+CREATE SEQUENCE public.addresses_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -77,14 +76,14 @@ CREATE SEQUENCE addresses_id_seq
 -- Name: addresses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE addresses_id_seq OWNED BY addresses.id;
+ALTER SEQUENCE public.addresses_id_seq OWNED BY public.addresses.id;
 
 
 --
 -- Name: areas; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE areas (
+CREATE TABLE public.areas (
     id integer NOT NULL,
     area character varying,
     created_at timestamp without time zone NOT NULL,
@@ -96,7 +95,7 @@ CREATE TABLE areas (
 -- Name: areas_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE areas_id_seq
+CREATE SEQUENCE public.areas_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -108,14 +107,14 @@ CREATE SEQUENCE areas_id_seq
 -- Name: areas_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE areas_id_seq OWNED BY areas.id;
+ALTER SEQUENCE public.areas_id_seq OWNED BY public.areas.id;
 
 
 --
 -- Name: cities; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE cities (
+CREATE TABLE public.cities (
     id integer NOT NULL,
     name character varying,
     state_id integer,
@@ -128,7 +127,7 @@ CREATE TABLE cities (
 -- Name: cities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE cities_id_seq
+CREATE SEQUENCE public.cities_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -140,14 +139,14 @@ CREATE SEQUENCE cities_id_seq
 -- Name: cities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE cities_id_seq OWNED BY cities.id;
+ALTER SEQUENCE public.cities_id_seq OWNED BY public.cities.id;
 
 
 --
 -- Name: forbidden_words; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE forbidden_words (
+CREATE TABLE public.forbidden_words (
     id integer NOT NULL,
     word character varying,
     created_at timestamp without time zone NOT NULL,
@@ -159,7 +158,7 @@ CREATE TABLE forbidden_words (
 -- Name: forbidden_words_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE forbidden_words_id_seq
+CREATE SEQUENCE public.forbidden_words_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -171,14 +170,14 @@ CREATE SEQUENCE forbidden_words_id_seq
 -- Name: forbidden_words_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE forbidden_words_id_seq OWNED BY forbidden_words.id;
+ALTER SEQUENCE public.forbidden_words_id_seq OWNED BY public.forbidden_words.id;
 
 
 --
 -- Name: friendly_id_slugs; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE friendly_id_slugs (
+CREATE TABLE public.friendly_id_slugs (
     id integer NOT NULL,
     slug character varying NOT NULL,
     sluggable_id integer NOT NULL,
@@ -192,7 +191,7 @@ CREATE TABLE friendly_id_slugs (
 -- Name: friendly_id_slugs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE friendly_id_slugs_id_seq
+CREATE SEQUENCE public.friendly_id_slugs_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -204,14 +203,14 @@ CREATE SEQUENCE friendly_id_slugs_id_seq
 -- Name: friendly_id_slugs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE friendly_id_slugs_id_seq OWNED BY friendly_id_slugs.id;
+ALTER SEQUENCE public.friendly_id_slugs_id_seq OWNED BY public.friendly_id_slugs.id;
 
 
 --
 -- Name: reports; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE reports (
+CREATE TABLE public.reports (
     id integer NOT NULL,
     detail character varying,
     service_id integer,
@@ -225,7 +224,7 @@ CREATE TABLE reports (
 -- Name: reports_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE reports_id_seq
+CREATE SEQUENCE public.reports_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -237,14 +236,14 @@ CREATE SEQUENCE reports_id_seq
 -- Name: reports_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE reports_id_seq OWNED BY reports.id;
+ALTER SEQUENCE public.reports_id_seq OWNED BY public.reports.id;
 
 
 --
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE schema_migrations (
+CREATE TABLE public.schema_migrations (
     version character varying NOT NULL
 );
 
@@ -253,7 +252,7 @@ CREATE TABLE schema_migrations (
 -- Name: services; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE services (
+CREATE TABLE public.services (
     id integer NOT NULL,
     name character varying,
     description text,
@@ -274,7 +273,7 @@ CREATE TABLE services (
 -- Name: services_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE services_id_seq
+CREATE SEQUENCE public.services_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -286,14 +285,14 @@ CREATE SEQUENCE services_id_seq
 -- Name: services_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE services_id_seq OWNED BY services.id;
+ALTER SEQUENCE public.services_id_seq OWNED BY public.services.id;
 
 
 --
 -- Name: states; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE states (
+CREATE TABLE public.states (
     id integer NOT NULL,
     acronym character varying,
     name character varying,
@@ -306,7 +305,7 @@ CREATE TABLE states (
 -- Name: states_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE states_id_seq
+CREATE SEQUENCE public.states_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -318,14 +317,14 @@ CREATE SEQUENCE states_id_seq
 -- Name: states_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE states_id_seq OWNED BY states.id;
+ALTER SEQUENCE public.states_id_seq OWNED BY public.states.id;
 
 
 --
 -- Name: subareas; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE subareas (
+CREATE TABLE public.subareas (
     id integer NOT NULL,
     subarea character varying,
     created_at timestamp without time zone NOT NULL,
@@ -338,7 +337,7 @@ CREATE TABLE subareas (
 -- Name: subareas_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE subareas_id_seq
+CREATE SEQUENCE public.subareas_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -350,14 +349,14 @@ CREATE SEQUENCE subareas_id_seq
 -- Name: subareas_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE subareas_id_seq OWNED BY subareas.id;
+ALTER SEQUENCE public.subareas_id_seq OWNED BY public.subareas.id;
 
 
 --
 -- Name: users; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE users (
+CREATE TABLE public.users (
     id integer NOT NULL,
     email character varying DEFAULT ''::character varying NOT NULL,
     encrypted_password character varying DEFAULT ''::character varying NOT NULL,
@@ -385,7 +384,7 @@ CREATE TABLE users (
 -- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE users_id_seq
+CREATE SEQUENCE public.users_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -397,14 +396,14 @@ CREATE SEQUENCE users_id_seq
 -- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE users_id_seq OWNED BY users.id;
+ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
 -- Name: votes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE votes (
+CREATE TABLE public.votes (
     id integer NOT NULL,
     votable_id integer,
     votable_type character varying,
@@ -422,7 +421,7 @@ CREATE TABLE votes (
 -- Name: votes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE votes_id_seq
+CREATE SEQUENCE public.votes_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -434,14 +433,14 @@ CREATE SEQUENCE votes_id_seq
 -- Name: votes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE votes_id_seq OWNED BY votes.id;
+ALTER SEQUENCE public.votes_id_seq OWNED BY public.votes.id;
 
 
 --
 -- Name: voting_sessions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE voting_sessions (
+CREATE TABLE public.voting_sessions (
     id integer NOT NULL,
     ip character varying,
     created_at timestamp without time zone NOT NULL,
@@ -453,7 +452,7 @@ CREATE TABLE voting_sessions (
 -- Name: voting_sessions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE voting_sessions_id_seq
+CREATE SEQUENCE public.voting_sessions_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -465,98 +464,98 @@ CREATE SEQUENCE voting_sessions_id_seq
 -- Name: voting_sessions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE voting_sessions_id_seq OWNED BY voting_sessions.id;
+ALTER SEQUENCE public.voting_sessions_id_seq OWNED BY public.voting_sessions.id;
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY addresses ALTER COLUMN id SET DEFAULT nextval('addresses_id_seq'::regclass);
+ALTER TABLE ONLY public.addresses ALTER COLUMN id SET DEFAULT nextval('public.addresses_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY areas ALTER COLUMN id SET DEFAULT nextval('areas_id_seq'::regclass);
+ALTER TABLE ONLY public.areas ALTER COLUMN id SET DEFAULT nextval('public.areas_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY cities ALTER COLUMN id SET DEFAULT nextval('cities_id_seq'::regclass);
+ALTER TABLE ONLY public.cities ALTER COLUMN id SET DEFAULT nextval('public.cities_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY forbidden_words ALTER COLUMN id SET DEFAULT nextval('forbidden_words_id_seq'::regclass);
+ALTER TABLE ONLY public.forbidden_words ALTER COLUMN id SET DEFAULT nextval('public.forbidden_words_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY friendly_id_slugs ALTER COLUMN id SET DEFAULT nextval('friendly_id_slugs_id_seq'::regclass);
+ALTER TABLE ONLY public.friendly_id_slugs ALTER COLUMN id SET DEFAULT nextval('public.friendly_id_slugs_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY reports ALTER COLUMN id SET DEFAULT nextval('reports_id_seq'::regclass);
+ALTER TABLE ONLY public.reports ALTER COLUMN id SET DEFAULT nextval('public.reports_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY services ALTER COLUMN id SET DEFAULT nextval('services_id_seq'::regclass);
+ALTER TABLE ONLY public.services ALTER COLUMN id SET DEFAULT nextval('public.services_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY states ALTER COLUMN id SET DEFAULT nextval('states_id_seq'::regclass);
+ALTER TABLE ONLY public.states ALTER COLUMN id SET DEFAULT nextval('public.states_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY subareas ALTER COLUMN id SET DEFAULT nextval('subareas_id_seq'::regclass);
+ALTER TABLE ONLY public.subareas ALTER COLUMN id SET DEFAULT nextval('public.subareas_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
+ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY votes ALTER COLUMN id SET DEFAULT nextval('votes_id_seq'::regclass);
+ALTER TABLE ONLY public.votes ALTER COLUMN id SET DEFAULT nextval('public.votes_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY voting_sessions ALTER COLUMN id SET DEFAULT nextval('voting_sessions_id_seq'::regclass);
+ALTER TABLE ONLY public.voting_sessions ALTER COLUMN id SET DEFAULT nextval('public.voting_sessions_id_seq'::regclass);
 
 
 --
 -- Name: addresses_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY addresses
+ALTER TABLE ONLY public.addresses
     ADD CONSTRAINT addresses_pkey PRIMARY KEY (id);
 
 
@@ -564,7 +563,7 @@ ALTER TABLE ONLY addresses
 -- Name: areas_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY areas
+ALTER TABLE ONLY public.areas
     ADD CONSTRAINT areas_pkey PRIMARY KEY (id);
 
 
@@ -572,7 +571,7 @@ ALTER TABLE ONLY areas
 -- Name: cities_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY cities
+ALTER TABLE ONLY public.cities
     ADD CONSTRAINT cities_pkey PRIMARY KEY (id);
 
 
@@ -580,7 +579,7 @@ ALTER TABLE ONLY cities
 -- Name: forbidden_words_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY forbidden_words
+ALTER TABLE ONLY public.forbidden_words
     ADD CONSTRAINT forbidden_words_pkey PRIMARY KEY (id);
 
 
@@ -588,7 +587,7 @@ ALTER TABLE ONLY forbidden_words
 -- Name: friendly_id_slugs_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY friendly_id_slugs
+ALTER TABLE ONLY public.friendly_id_slugs
     ADD CONSTRAINT friendly_id_slugs_pkey PRIMARY KEY (id);
 
 
@@ -596,7 +595,7 @@ ALTER TABLE ONLY friendly_id_slugs
 -- Name: reports_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY reports
+ALTER TABLE ONLY public.reports
     ADD CONSTRAINT reports_pkey PRIMARY KEY (id);
 
 
@@ -604,7 +603,7 @@ ALTER TABLE ONLY reports
 -- Name: services_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY services
+ALTER TABLE ONLY public.services
     ADD CONSTRAINT services_pkey PRIMARY KEY (id);
 
 
@@ -612,7 +611,7 @@ ALTER TABLE ONLY services
 -- Name: states_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY states
+ALTER TABLE ONLY public.states
     ADD CONSTRAINT states_pkey PRIMARY KEY (id);
 
 
@@ -620,7 +619,7 @@ ALTER TABLE ONLY states
 -- Name: subareas_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY subareas
+ALTER TABLE ONLY public.subareas
     ADD CONSTRAINT subareas_pkey PRIMARY KEY (id);
 
 
@@ -628,7 +627,7 @@ ALTER TABLE ONLY subareas
 -- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY users
+ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
 
 
@@ -636,7 +635,7 @@ ALTER TABLE ONLY users
 -- Name: votes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY votes
+ALTER TABLE ONLY public.votes
     ADD CONSTRAINT votes_pkey PRIMARY KEY (id);
 
 
@@ -644,7 +643,7 @@ ALTER TABLE ONLY votes
 -- Name: voting_sessions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY voting_sessions
+ALTER TABLE ONLY public.voting_sessions
     ADD CONSTRAINT voting_sessions_pkey PRIMARY KEY (id);
 
 
@@ -652,85 +651,85 @@ ALTER TABLE ONLY voting_sessions
 -- Name: index_friendly_id_slugs_on_slug_and_sluggable_type; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_friendly_id_slugs_on_slug_and_sluggable_type ON friendly_id_slugs USING btree (slug, sluggable_type);
+CREATE INDEX index_friendly_id_slugs_on_slug_and_sluggable_type ON public.friendly_id_slugs USING btree (slug, sluggable_type);
 
 
 --
 -- Name: index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE UNIQUE INDEX index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope ON friendly_id_slugs USING btree (slug, sluggable_type, scope);
+CREATE UNIQUE INDEX index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope ON public.friendly_id_slugs USING btree (slug, sluggable_type, scope);
 
 
 --
 -- Name: index_friendly_id_slugs_on_sluggable_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_friendly_id_slugs_on_sluggable_id ON friendly_id_slugs USING btree (sluggable_id);
+CREATE INDEX index_friendly_id_slugs_on_sluggable_id ON public.friendly_id_slugs USING btree (sluggable_id);
 
 
 --
 -- Name: index_friendly_id_slugs_on_sluggable_type; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_friendly_id_slugs_on_sluggable_type ON friendly_id_slugs USING btree (sluggable_type);
+CREATE INDEX index_friendly_id_slugs_on_sluggable_type ON public.friendly_id_slugs USING btree (sluggable_type);
 
 
 --
 -- Name: index_reports_on_service_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_reports_on_service_id ON reports USING btree (service_id);
+CREATE INDEX index_reports_on_service_id ON public.reports USING btree (service_id);
 
 
 --
 -- Name: index_services_on_slug; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE UNIQUE INDEX index_services_on_slug ON services USING btree (slug);
+CREATE UNIQUE INDEX index_services_on_slug ON public.services USING btree (slug);
 
 
 --
 -- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE UNIQUE INDEX index_users_on_email ON users USING btree (email);
+CREATE UNIQUE INDEX index_users_on_email ON public.users USING btree (email);
 
 
 --
 -- Name: index_users_on_reset_password_token; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE UNIQUE INDEX index_users_on_reset_password_token ON users USING btree (reset_password_token);
+CREATE UNIQUE INDEX index_users_on_reset_password_token ON public.users USING btree (reset_password_token);
 
 
 --
 -- Name: index_votes_on_votable_id_and_votable_type_and_vote_scope; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_votes_on_votable_id_and_votable_type_and_vote_scope ON votes USING btree (votable_id, votable_type, vote_scope);
+CREATE INDEX index_votes_on_votable_id_and_votable_type_and_vote_scope ON public.votes USING btree (votable_id, votable_type, vote_scope);
 
 
 --
 -- Name: index_votes_on_voter_id_and_voter_type_and_vote_scope; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_votes_on_voter_id_and_voter_type_and_vote_scope ON votes USING btree (voter_id, voter_type, vote_scope);
+CREATE INDEX index_votes_on_voter_id_and_voter_type_and_vote_scope ON public.votes USING btree (voter_id, voter_type, vote_scope);
 
 
 --
 -- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
+CREATE UNIQUE INDEX unique_schema_migrations ON public.schema_migrations USING btree (version);
 
 
 --
 -- Name: fk_rails_ed1cbcda95; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY reports
-    ADD CONSTRAINT fk_rails_ed1cbcda95 FOREIGN KEY (service_id) REFERENCES services(id);
+ALTER TABLE ONLY public.reports
+    ADD CONSTRAINT fk_rails_ed1cbcda95 FOREIGN KEY (service_id) REFERENCES public.services(id);
 
 
 --

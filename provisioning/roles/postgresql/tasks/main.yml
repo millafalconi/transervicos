@@ -3,7 +3,7 @@
   apt: pkg=acl
 
 - name: Add postgresql apt repository
-  apt_repository: repo='deb http://apt.postgresql.org/pub/repos/apt/ precise-pgdg main' state=present
+  apt_repository: repo='deb http://apt.postgresql.org/pub/repos/apt/ jessie-pgdg main' state=present
 
 - name: Ensure correct locale is set
   command: /usr/sbin/update-locale LANG={{ locale }} LC_ALL={{ locale }}
