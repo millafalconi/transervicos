@@ -23,7 +23,7 @@ function msg_not_installed() {
 
 function is_installed() {
   case ${1} in
-    vagrant-cachier)
+    vagrant-cachier | vagrant-vbguest)
       is_installed "vagrant" && [[ $(vagrant plugin list | grep "${1}") = *${1}* ]]
       ;;
     *)
@@ -207,6 +207,7 @@ function check_setup() {
   check "virtualbox"
   check "vagrant"
   check "vagrant-cachier"
+  check "vagrant-vbguest"
   check "ansible"
   check_version "ansible" 1.9
 }
