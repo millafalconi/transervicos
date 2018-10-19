@@ -15,6 +15,7 @@
    - postgresql-server-dev-9.4
    - python-psycopg2
    - libpq-dev
+   - postgresql-contrib-9.4
 
 - name: Create user vagrant
   postgresql_user: name=vagrant
