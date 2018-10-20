@@ -5,7 +5,27 @@
 
 ## Primeiros passos
 
-#### Instalando o Vagrant e o Ansible
+### Fazendo setup do projeto
+
+Para setup completo da aplicação, são necessários:
+1. Virtual Box
+2. Vagrant
+3. Ansible, a partir da versão 1.9
+4. Plugins do Vagrant:
+4.1. Vagrant cashier
+4.2. Vagrant  vbguest
+
+Disponibilizamos uma dev-cli para setup rápido da aplicação.
+
+#### Usando a dev-cli
+
+1. Pelo terminal, vá para a pasta do projeto (`$ cd caminho_do_projeto`)
+2. Na raíz do projeto, onde está o arquivo `trans.d`, execute:
+`./trans setup install` e siga as instruções
+
+#### Fazendo Setup Manual
+
+##### Instalando o Vagrant e o Ansible
 
 1. Instale o [Ansible](http://www.ansible.com "ansible") **a partir da versão 1.9**
 2. Instale o [Vagrant](http://www.vagrantup.com/ "vagrant")
@@ -18,6 +38,8 @@ O Cashier é um plugin para o Vagrant que permite a utilização de cache de pro
 1. No terminal, vá para o diretório onde se encontra o projeto (`$ cd caminho_do_projeto`)
 2. Na raíz do projeto (ou na pasta onde se encontra o arquivo Vagrantfile) execute o seguinte comando:
 `vagrant plugin install vagrant-cachier`
+
+### O Vagrant: Provisionando e Utilizando
 
 #### Provisionando o vagrant
 
@@ -38,20 +60,32 @@ Para utilizar o Vagrant, execute os seguintes comandos:
 5. `rake db:migrate db:seed server:start` (roda migrações, popula tabelas essenciais e inicia o servidor)
 6. Abra seu browser e acesse `http:localhost:8000`
 
+### Setup do banco de dados
+
+A estrutura do banco de dados é configurada por migrações, que são executadas após o provisionamento da máquina virtual. Veja no tópico anterior, o passo 5:
+- `db:migrate` - para migrações;
+- `db:seed` - para popular as tabelas necessárias para iniciar a aplicação
+
 #### Criando um usuário admin
 
-Execute o comando `rails c` e coloque o comando
-`us = User.create(password: 'password',password_confirmation: 'password',email: <email>,social_name: <nome>,civil_name: <nome>,birth_date: 20.years.ago,username: <usuario>,phone_number: "12346789",name_preference: User::SOCIAL_NAME_PREFERENCE)`
+Para execução da aplicação, é preciso a criação de um usuário administrador. Para tal,
+1. Execute o comando `rails c`
+2. Insira o comando `us = User.create(password: 'password',password_confirmation: 'password',email: <email>,social_name: <nome>,civil_name: <nome>,birth_date: 20.years.ago,username: <usuario>,phone_number: "12346789",name_preference: User::SOCIAL_NAME_PREFERENCE)`
+3. Configure o usuário criado acima como administrador: `us.admin = true`
+4. Salve o usuário no banco de dados: `us.save`
 
-Depois `us.admin = true` e então `us.save`.
+Na aplicação que está rodando no seu browser em (http://localhost:8000):
+1. Faça login com o novo usuário criado;
+2. Visite `http://localhost:8000/admin`
 
-Logue no site com o novo usuário criado e vá para a url `http://localhost:8000/admin`.
+Em caso de erro, no terminal, execute para ter acesso às mensagens de erro: `us.errors.full_messages`.
 
-Em caso de erro `us.errors.full_messages`.
+### Testes
+- Temos três diferentes níveis de testes: 1. Testes unitários; 2. Testes unitários de UI (Javascript); além do analisador de código ruby.
 
-### Rodando os testes
-
-Estando logado na máquina com `vagrant ssh`, vá até o diretório do projeto com `cd /vagrant/transervicos`
+Para execução de comandos de testes:
+1. Na raiz do projeto, logue na máquina virtual via ssh: `vagrant ssh`;
+2. Vá até o diretório do projeto na máquina virtual: `cd /vagrant/transervicos`;
 
 #### Para rodar os testes unitários de ruby
 
